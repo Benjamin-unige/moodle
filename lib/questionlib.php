@@ -1475,6 +1475,13 @@ function question_has_capability_on($questionorid, $cap, $notused = -1): bool {
 
             // Well, at least we tried. Seems that we really have to read from DB.
             $question = $DB->get_record_sql($sql, ['id' => $questionid]);
+
+            // The question does not exist, we return false here to exit
+            // this function and be able to treat it as a missing question
+            // further down the line.
+            if ($question === false) {
+                return false;
+            }
         }
     }
 
