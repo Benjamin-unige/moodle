@@ -64,7 +64,6 @@ class question_reference_manager {
                          FROM {question_versions} lqv
                          JOIN {question_versions} lv ON lv.questionbankentryid = lqv.questionbankentryid
                         WHERE lqv.questionid $lqidtest
-                          AND lv.status <> :draft
                      GROUP BY lqv.questionbankentryid
                    ) latestversions ON latestversions.questionbankentryid = qv.questionbankentryid
 
@@ -72,7 +71,7 @@ class question_reference_manager {
                        AND (qr.version = qv.version OR qr.version IS NULL AND qv.version = latestversions.latestusableversion)
 
              WHERE qv.questionid $qidtest
-            ", array_merge($params, $lparams, ['draft' => question_version_status::QUESTION_STATUS_DRAFT]));
+            ", array_merge($params, $lparams));
     }
 
     /**
