@@ -296,6 +296,39 @@ class questionlib_test extends \advanced_testcase {
     }
 
     /**
+     * Test that a question with a 'draft' status used in a quiz
+     * is hidden instead of deleted.
+     *
+     * @covers ::question_delete_question
+     */
+    public function test_question_delete_question_used_draft() {
+        global $DB;
+        $this->resetAfterTest(true);
+
+        list($category, $course, $quiz, $qcat, $questions) = $this->setup_quiz_and_questions();
+
+        $q1 = $questions[0];
+
+        // Set the status of the question to 'draft'.
+        $DB->set_field(
+            'question_versions',
+            'status',
+            \core_question\local\bank\question_version_status::QUESTION_STATUS_DRAFT,
+            ['questionid' => $q1->id]
+        );
+
+        // Do.
+        question_delete_question($q1->id);
+
+        // Verify that the question is still existing and that the version status is 'hidden'.
+        $this->assertTrue($DB->record_exists('question', ['id' => $q1->id]));
+        $this->assertEquals(
+            $DB->get_record('question_versions', ['questionid' => $q1->id])->status,
+            \core_question\local\bank\question_version_status::QUESTION_STATUS_HIDDEN
+        );
+    }
+
+    /**
      * Test that deleting a broken question from the question bank does not cause fatal errors.
      */
     public function test_question_delete_question_broken_data() {

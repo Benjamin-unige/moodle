@@ -182,7 +182,7 @@ class qbank_helper {
                 $slot->length = 1;
             } else if ($slot->qtype === null) {
                 // This question must have gone missing. Put in a placeholder.
-                $slot->questionid = 's' . $slot->id; // Sometimes this is used as an array key, so needs to be unique.
+                $slot->questionid = time() . $slot->id; // Sometimes this is used as an array key, so needs to be unique.
                 $slot->category = 0;
                 $slot->qtype = 'missingtype';
                 $slot->name = get_string('missingquestion', 'quiz');
