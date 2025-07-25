@@ -33213,6 +33213,43 @@ a.ygtvspacer:hover {
   padding-left: 5px;
 }
 
+.foldertree li {
+  position: relative;
+  list-style: none;
+}
+.foldertree li::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--bs-body-font-size) / var(--bs-body-line-height) + 2px);
+  left: calc((2rem - 0.25rem - 2px / 2) * -1);
+  border-bottom: 2px dotted var(--bs-border-color);
+  width: 1rem;
+}
+.foldertree li img.icon {
+  width: auto;
+}
+.foldertree > li::before {
+  display: none;
+}
+.foldertree summary {
+  display: inline list-item;
+}
+.foldertree details::before {
+  content: "";
+  position: absolute;
+  top: 1.3rem;
+  left: calc(0.25rem - 2px / 2);
+  height: calc(100% - 2rem);
+  border-left: 2px dotted var(--bs-border-color);
+}
+.foldertree summary:focus {
+  outline: none;
+}
+.foldertree summary:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(15, 108, 191, 0.75);
+}
+
 /** The message area **/
 .hidden {
   display: none;

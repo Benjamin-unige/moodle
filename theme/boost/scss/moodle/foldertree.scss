@@ -1,0 +1,52 @@
+$folder-tree-border-style: dotted !default;
+$folder-tree-border-color: var(--#{$prefix}border-color) !default;
+$folder-tree-border-width: 2px !default;
+
+.foldertree {
+    li {
+        position: relative;
+        list-style: none;
+
+        // Horizontal line for nested folders.
+        &::before {
+            content: '';
+            position: absolute;
+            top: calc(var(--bs-body-font-size) / var(--bs-body-line-height) + #{$folder-tree-border-width});
+            left: calc((2rem - 0.25rem - #{$folder-tree-border-width} / 2) * -1);
+            border-bottom: $folder-tree-border-width $folder-tree-border-style $folder-tree-border-color;
+            width: 1rem;
+        }
+
+        & img.icon {
+            width: auto;
+        }
+    }
+
+    > li::before {
+        display: none;
+    }
+
+    summary {
+        display: inline list-item;
+    }
+
+    // Vertical line for nested folders.
+    details::before {
+        content: '';
+        position: absolute;
+        top: 1.3rem;
+        left: calc(0.25rem - #{$folder-tree-border-width} / 2);
+        height: calc(100% - 2rem);
+        border-left: $folder-tree-border-width $folder-tree-border-style $folder-tree-border-color;
+    }
+
+    summary:focus {
+        outline: none;
+    }
+
+    summary:focus-visible {
+        outline: 0;
+        box-shadow: $focus-ring-box-shadow;
+    }
+}
+
