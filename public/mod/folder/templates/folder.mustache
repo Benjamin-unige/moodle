@@ -48,6 +48,7 @@
                 "name": "Folder",
                 "icon": "<img src='icon' alt='alt'>",
                 "hassubdirs": true,
+                "isroot": true,
                 "subdirs": [
                     {
                         "name": "File1",
@@ -81,10 +82,10 @@
             </div>
         </div>
     {{/hasbuttons}}
-    <div class="box generalbox pt-0 pb-3 foldertree">
+    <div class="box generalbox pt-0 pb-3">
         <div id="{{{id}}}" class="filemanager">
             {{#dir}}
-                <ul>
+                <ul class="foldertree">
                     <li>
                         {{>mod_folder/tree}}
                     </li>
@@ -93,10 +94,3 @@
         </div>
     </div>
 </div>
-
-{{#js}}
-    // Init tree JS.
-    require(['mod_folder/folder'], function(Folder) {
-        Folder.initTree('{{{id}}}', '{{{showexpanded}}}');
-    });
-{{/js}}
